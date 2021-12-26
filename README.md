@@ -1,18 +1,20 @@
 # 基于chisel语言编写的RISCV微处理器核
+仓库地址：https://github.com/zhuanshulz/RV32_chisel
 ## CPU设计说明
-简介：该项目利用chisel语言实现了顺序RISCV处理器核，支持除了`ecall/ebreak/fence`的RV32I指令集，顺序单发射，该处理器主要参考了 [SweRV EH1](https://github.com/chipsalliance/Cores-SweRV) 的执行流水，并对其进行了简化，由于该项目的首要目标是帮助作者熟悉chiesel的硬件开发，所以没有特别考虑处理器的性能以及其评估，因此也没有实现特权指令集；该项目存在的主要目的在于作者刚入门chisel语言，希望借此逐渐掌握利用chisel进行硬件开发这一技能，同时对后来者入门chisel同样具有参考意义。
+该项目利用chisel语言实现了顺序RISCV处理器核，支持除了`ecall/ebreak/fence`的RV32I指令集，顺序单发射，该处理器主要参考了 [SweRV EH1](https://github.com/chipsalliance/Cores-SweRV) 的执行流水，并对其进行了简化，由于该项目的首要目标是帮助作者熟悉chiesel的硬件开发，所以没有特别考虑处理器的性能以及其评估，因此也没有实现特权指令集；该项目存在的主要目的在于作者刚入门chisel语言，希望借此逐渐掌握利用chisel进行硬件开发这一技能，同时对后来者入门chisel同样具有参考意义。
 
 ## Compile chisel code and Simulate
 
 * Install `mill`. Refer to [the Manual section in this guide][mill].
 * Install `verilator`.
-* Run `make pre_compiled` to generate verilog code and simulate the corresponding precompiled program.
+* Run `make pre_compiled` to generate verilog code and simulate with the corresponding precompiled program.
 * If u want to simulate your own program, then alter the [Makefile](./Makefile) and run with `make all`
 
 [mill]: https://com-lihaoyi.github.io/mill/ 
 
 ## CPU详细设计说明
 ![microarchitecture](doc/pic/microarchitecture.png)
+
 该核流水主要分为`IF、DEC、EXE0/LSU0、EXE1/LSU1、WB`五个段。
 ### IFU
 |接口信号(Buddle)|含义|
@@ -90,4 +92,4 @@
 
 
 ## Future Work
-在流水之间增设FIFO，增设执行流水后可以达到像[SweRV EH1](https://github.com/chipsalliance/Cores-SweRV)那样的部分乱序多发射的功能。
+增设系统寄存器，在流水之间增设FIFO，增设执行流水后可以达到像[SweRV EH1](https://github.com/chipsalliance/Cores-SweRV)那样的部分乱序多发射的功能。
