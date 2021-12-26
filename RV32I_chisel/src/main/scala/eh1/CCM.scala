@@ -30,10 +30,10 @@ class CCM(
         val stall_i = Input(Bool())
     })
 
-    val mem_0 = SyncReadMem(4096, UInt(8.W))
-    val mem_1 = SyncReadMem(4096, UInt(8.W))
-    val mem_2 = SyncReadMem(4096, UInt(8.W))
-    val mem_3 = SyncReadMem(4096, UInt(8.W))
+    val mem_0 = SyncReadMem(8192, UInt(8.W))
+    val mem_1 = SyncReadMem(8192, UInt(8.W))
+    val mem_2 = SyncReadMem(8192, UInt(8.W))
+    val mem_3 = SyncReadMem(8192, UInt(8.W))
     
     val mem_4 = SyncReadMem(4096, UInt(8.W))
     val mem_5 = SyncReadMem(4096, UInt(8.W))

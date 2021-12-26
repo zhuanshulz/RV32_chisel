@@ -257,16 +257,16 @@ class Rd_Final_Port extends Bundle{
 // finish decode and issue 
 class DEC extends Module{
     val io = IO(new Bundle{
-        val instr   = Flipped(new InstrPort())
-        val alu  = new AluPort()
-        val lsu  = new LsuPort()
-        val alu_back = Flipped(new AluPort())
-        val lsu_back = Flipped(new LsuPort())
-        val flush_i = new FlushPort()
-        val stall_o = Output(Bool())
-        val bypass_d0o = Flipped(new ByPassPort())
-        val bypass_d1o = Flipped(new ByPassPort())
-        val rd_final = new Rd_Final_Port()
+        val instr       = Flipped(new InstrPort())
+        val alu         = new AluPort()
+        val lsu         = new LsuPort()
+        val alu_back    = Flipped(new AluPort())
+        val lsu_back    = Flipped(new LsuPort())
+        val flush_i     = new FlushPort()
+        val stall_o     = Output(Bool())
+        val bypass_d0o  = Flipped(new ByPassPort())
+        val bypass_d1o  = Flipped(new ByPassPort())
+        val rd_final    = new Rd_Final_Port()
     })
 
     val decode = Module(new Decode)
@@ -347,6 +347,8 @@ class DEC extends Module{
         rd_wb    := 0.U
         rd_wb_data  := 0.U
     }
+
+    // bypass logic
     val bypass_0 = Wire(new ByPassPort())
     bypass_0.rs1_en := 0.B
     bypass_0.rs1 := 0.U
@@ -358,15 +360,20 @@ class DEC extends Module{
         when( (rd_wb =/= 0.U) && (rd_wb === rs1_fifo_alu(1).rd) && rs1_fifo_alu(1).valid){
             io.bypass_d1o.rs1_en := 1.B
             io.bypass_d1o.rs1    := rd_wb_data
-        } .elsewhen( (rd_wb =/= 0.U) && (rd_wb === rs2_fifo_alu(1).rd) && rs2_fifo_alu(1).valid){
+        } 
+        when( (rd_wb =/= 0.U) && (rd_wb === rs2_fifo_alu(1).rd) && rs2_fifo_alu(1).valid){
             io.bypass_d1o.rs2_en := 1.B
             io.bypass_d1o.rs2    := rd_wb_data
-        } .elsewhen(  (rd_wb =/= 0.U) && (rd_wb ===  rd_fifo_alu(1).rd) && rd_fifo_alu(1).valid){
+        } 
+        when(  (rd_wb =/= 0.U) && (rd_wb ===  rd_fifo_alu(1).rd) && rd_fifo_alu(1).valid){
 
-        } .elsewhen(  (rd_wb =/= 0.U) && (rd_wb === rs1_fifo_alu(0).rd) && rs1_fifo_alu(0).valid){
+        } 
+        
+        when(  (rd_wb =/= 0.U) && (rd_wb === rs1_fifo_alu(0).rd) && rs1_fifo_alu(0).valid){
             io.bypass_d0o.rs1_en := 1.B
             io.bypass_d0o.rs1    := rd_wb_data
-        } .elsewhen(  (rd_wb =/= 0.U) && (rd_wb === rs2_fifo_alu(0).rd) && rs2_fifo_alu(0).valid){
+        } 
+        when(  (rd_wb =/= 0.U) && (rd_wb === rs2_fifo_alu(0).rd) && rs2_fifo_alu(0).valid){
             io.bypass_d0o.rs2_en := 1.B
             io.bypass_d0o.rs2    := rd_wb_data
         }

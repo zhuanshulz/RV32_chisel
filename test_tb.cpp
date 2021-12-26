@@ -71,10 +71,10 @@ int main(int argc, char** argv) {
       break;
     }
 
-    if(clkCnt == 10000){
-      tfp->close();
-      break;
-    }
+    // if(clkCnt == 10000){
+    //   tfp->close();
+    //   break;
+    // }
 
   }
 

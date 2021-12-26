@@ -7,8 +7,8 @@ import chisel3.util.experimental.loadMemoryFromFile
 
 class EH1SimTop extends Module{
     val io = IO(new Bundle{
-        val exe_result = new AluPort()
-        val lsu_result = new LsuPort()
+        // val exe_result = new AluPort()
+        // val lsu_result = new LsuPort()
         val rd_final = new Rd_Final_Port()
     })
 
@@ -35,7 +35,7 @@ class EH1SimTop extends Module{
     exe.io.bypass_d1 := dec.io.bypass_d0o
     exe.io.bypass_d2 := dec.io.bypass_d1o
 
-    io.exe_result <> exe.io.alu_out
-    io.lsu_result <> lsu.io.lsu_result
+    // io.exe_result <> exe.io.alu_out
+    // io.lsu_result <> lsu.io.lsu_result
     io.rd_final  <> dec.io.rd_final
 }

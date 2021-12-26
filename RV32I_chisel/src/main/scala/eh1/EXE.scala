@@ -179,11 +179,11 @@ class Alu extends Module{
 
 class EXE extends Module{
     val io = IO(new Bundle{
-        val alu  = Flipped(new AluPort())
-        val bypass_d1 = new ByPassPort()
-        val bypass_d2 = new ByPassPort()
-        val alu_out = new AluPort()
-        val flush_o = Flipped(new FlushPort())
+        val alu         = Flipped(new AluPort())
+        val bypass_d1   = new ByPassPort()
+        val bypass_d2   = new ByPassPort()
+        val alu_out     = new AluPort()
+        val flush_o     = Flipped(new FlushPort())
     })
 // bypass 的逻辑控制全部交由 dec模块控制。
     val alu_d1 = Module(new Alu)

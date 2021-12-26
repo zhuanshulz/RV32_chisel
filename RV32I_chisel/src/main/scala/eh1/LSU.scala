@@ -96,7 +96,6 @@ class Load_Store(
             io.lsu_result.load_data:= Cat(Fill(24, io.dccm_port.readData(7)), io.dccm_port.readData(7,0))
         }
     }
-
 }
 
 class LSU(
@@ -104,10 +103,10 @@ class LSU(
     addrWidth: Int = 32,
 )  extends Module{
     val io = IO(new Bundle{
-        val lsu  = Flipped(new LsuPort())
-        val lsu_result = new LsuPort()
-        val dccm_port = Flipped(new MemoryPort(addrWidth, bankNum * 8))
-        val flush_i = new FlushPort()
+        val lsu         = Flipped(new LsuPort())
+        val lsu_result  = new LsuPort()
+        val dccm_port   = Flipped(new MemoryPort(addrWidth, bankNum * 8))
+        val flush_i     = new FlushPort()
     })
 
     val addr_com = Module(new Addr_Com())
