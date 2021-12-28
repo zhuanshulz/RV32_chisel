@@ -24,10 +24,10 @@ CFLAGS += "-std=c++11 -DVL_DEBUG"
 VERILATOR_MAKE_FLAGS = OPT_FAST=""
 # Define test name，must in TEST_LIST
 ifeq ($(strip $(TEST)),)
-	TEST = CoreMark
+	TEST = HelloWorld
 endif
 
-TEST_LIST = HelloWorld Dhrystone Float CoreMark Bubble
+TEST_LIST = HelloWorld Dhrystone CoreMark Bubble
 
 ifeq ($(strip $(TEST_DIR)),)
 	TEST_DIR = ${RV_ROOT}/benchmark
@@ -67,7 +67,9 @@ mill:$(TOP_V)
 
 all:clean $(TOP_V) verilator-run 
 
-pre_compiled:$(TOP_V)
+pre_compiled:$(SCALA_FILE)
+	mkdir -p ./build
+	mill RV32I_chisel.runMain top.$(TOP) -td ./build --output-file $(TOP).v
 	cp $(RV_ROOT)/benchmark/precompiled/$(TEST)/* $(RV_ROOT)/benchmark/sim_hex/
 	$(VERILATOR) '-UASSERT_ON' --cc -CFLAGS ${CFLAGS} -I$(abspath $(BUILD_DIR))  -I${RV_ROOT}/debug $(BUILD_DIR)/*.v ${RV_ROOT}/debug/*.v\
 		-Werror-PINMISSING -Werror-IMPLICIT -Wno-LITENDIAN -Wno-BLKANDNBLK -Wno-CMPCONST -Wno-CASEINCOMPLETE -Wno-UNOPTFLAT -Wno-WIDTH \

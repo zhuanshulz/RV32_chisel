@@ -13,7 +13,7 @@ class EH1SimTop extends Module{
     })
 
     val ifu = Module(new IFU(    bankNum = 4,   addrWidth = 32 ))
-    val ccm = Module(new CCM(    bankNum = 4,   addrWidth = 32,  memoryFile = "/home/wxz/data/RV32_chisel/benchmark/sim_hex/"))
+    val ccm = Module(new CCM(    bankNum = 4,   addrWidth = 32,  memoryFile = "./benchmark/sim_hex/"))
     val dec = Module(new DEC)
     val exe = Module(new EXE)
     val lsu = Module(new LSU)

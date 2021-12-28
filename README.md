@@ -3,6 +3,13 @@
 ## CPU设计说明
 该项目利用chisel语言实现了顺序RISCV处理器核，支持除了`ecall/ebreak/fence`的RV32I指令集，顺序单发射，该处理器主要参考了 [SweRV EH1](https://github.com/chipsalliance/Cores-SweRV) 的执行流水，并对其进行了简化，由于该项目的首要目标是帮助作者熟悉chiesel的硬件开发，所以没有特别考虑处理器的性能以及其评估，因此也没有实现特权指令集；该项目存在的主要目的在于作者刚入门chisel语言，希望借此逐渐掌握利用chisel进行硬件开发这一技能，同时对后来者入门chisel同样具有参考意义。
 
+## Requirement
+
+`Verilator >= 4.210` for better adaption
+
+`mill`
+
+**only** RV32I restricted compiled riscv32 `gcc`
 ## Compile chisel code and Simulate
 
 * Install `mill`. Refer to [the Manual section in this guide][mill].
